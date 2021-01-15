@@ -1,0 +1,37 @@
+#!/usr/bin/perl
+
+
+system (" awk '{print $1"\\t"$2"\\t"NR}' $ARGV[0] > .\/aaa");
+open IN,"<aaa";
+open OUT,">$ARGV[1]";
+$ctg_f = 0;
+while(<IN>){
+	 chomp;
+	 @ctg_arr = split(/\t/,$_);
+	
+	if ($ctg_f eq 0) {
+	print OUT "$ctg_arr[0]\t";
+	
+	if ($ctg_arr[2]%101 eq 0) {
+	print OUT "$ctg_arr[1]\n";
+	$ctg_f = $ctg_arr[2]%101;
+	}else	{
+	print OUT "$ctg_arr[1]\t";
+	$ctg_f = $ctg_arr[2]%101;
+
+}
+
+}else{
+	if ($ctg_arr[2]%101 eq 0) {
+	print OUT "$ctg_arr[1]\n";
+	$ctg_f = $ctg_arr[2]%101;
+	}else	{
+	print OUT "$ctg_arr[1]\t";
+	$ctg_f = $ctg_arr[2]%101;
+	}
+
+}
+}
+
+ close IN;
+ close OUT;
